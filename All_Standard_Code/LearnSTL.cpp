@@ -288,6 +288,260 @@ void explainPriority_Queue()
     // size(), swap(), empty() same as others.
 
 }
+
+void explainSet()
+{
+    // set stored element in a sorted order. it sort in ascending order.
+    // but it only stored unique element, it does not stored duplicate element .
+    // set works in logarithmic time
+    set<int> st;
+
+    st.insert(1); // {1}
+    st.insert(6); // {1,6}
+    st.insert(3); // {1,3,6}
+    st.insert(1); // {1,3,6}
+    st.emplace(5); // {1,3,5,6}
+
+    // begin(), end(), rbegin(), rend(), size()
+    // empty() and swap() are same as others.
+
+    // if a want to find a specific element in set i can use find()
+    // {1,3,5,6}
+    auto it = st.find(5); // here, it check's 5 is present or not in the set.
+    // if 5 is present then it pointing 5 and return the memory location of 5. otherwise
+    // it point to st.end() and return st.end() as a memory location.
+    if(it != st.end())
+    {
+        cout<<"find\n"; // execute this one.
+    }
+    else{
+        cout<<"Not Found\n";
+    }
+
+    it = st.find(2);
+    if(it != st.end())
+    {
+        cout<<"find\n";
+    }
+    else{
+        cout<<"Not Found\n"; // execute this one.
+    }
+
+    // we will also can count() function for checking an element is present or not.
+    int cnt = st.count(3); // if the set contain 3 then it will return 1, else return 0.
+
+    // erase function
+    // {1,3,5,6}
+    st.erase(5); // {1,3,6} // Take logarithmic time. log(n)
+
+    it = st.find(6);
+    st.erase(it); // it will erase 6. // {1,3} // it's take constant time.
+
+    // we also can remove a range of value.
+    // {1,2,3,4,6,8,9}
+    auto it1 = st.find(2);
+    auto it2 = st.find(6);
+    st.erase(it1, it2);    // after erase { 1,6,8,9} // [first, last).
+
+    // lower_bound() and upper_bound() function works in the same way
+    // as in the vector it does.
+    // the syntax is.
+
+    auto it3 = st.lower_bound(2);
+    auto it4 = st.upper_bound(2);
+
+}
+
+void explainMultiset()
+{
+    // Everything is same as set.
+    // but it allows to stores duplicate element also.
+
+    multiset<int> ms;
+
+    ms.insert(1); // {1}
+    ms.insert(1); // {1,1}
+    ms.insert(1); // {1,1,1}
+    ms.emplace(3); // {1,1,1,3}
+    ms.emplace(3); // {1,1,1,3,3}
+
+    // count how many specific element present in multi set.
+    int cnt1 = ms.count(1);  // cnt1 = 3 // 1 has 3 times
+    int cnt2 = ms.count(3);  // cnt2 = 2 // 3 has 2 times
+
+    // erase all specific element
+    ms.erase(1); // all 1's erased. // {3,3}
+
+    // erase only a single element
+    ms.erase(ms.find(3)); // it will erase only one 3. // {3}
+
+    // what if you want to erase more than single element but not all elements.
+    //ms.erase(ms.find(1), ms.find(1)+2);  // it will erase two 1.
+   // ms.erase(ms.find(1), ms.find(1)+4);  // it will erase four 1.
+
+    // rest all functions same as set.
+}
+
+void explainUnordered_Set()
+{
+    unordered_set<int> ust;
+
+    // it has exactly similar functionality to set.but
+    // it doesn't stored element in sorted order like set.
+    // it stored only unique element but not in sorted order
+
+    // lower_bound() and upper_bound() functions does not work
+    // rest all function are same as set.
+    // it doesn't stores in particular order / sorted order.
+    // it has a better complexity than set in most cases.
+    // except some when collision happens.
+
+}
+
+void explainMap()
+{
+    // maps contain sorted {key, value} pair. And elements are sorted
+    // in ascending order according to the key element.
+    // each key element is unique and can not be changed, and key
+    // element can be inserted or deleted but can not be altered.
+    // value associated with keys can be altered.
+    // {key, value}
+    // map stored unique key element. it doesn't allow duplicate key element.
+    map<int, int> mp;
+
+    map<int, pair<int,int>> mpp1;
+    map<pair<int,int>, int> mpp2;
+
+    // key and value can be anything, int, float, double, string...
+
+    mp[1] = 2;
+    /*{
+        {1,2}
+
+      }*/
+    mp.insert({5,9});
+    /*{
+        {1,2},
+        {5,9}
+
+      }*/
+    mp.insert({2,7});
+    /*{
+        {1,2},
+        {2,7},
+        {5,9}
+
+      }*/
+    mp.insert({3,4});
+    /*{
+        {1,2},
+        {2,7},
+        {3,4},
+        {5,9}
+
+      }*/
+
+      //mpp1.insert({3}, {4,5});
+      //mpp2.insert({6,7}, {8});
+
+      // Ways to access the map elements.
+
+      for(auto it: mp)
+      {
+          cout<<it.first<<" "<<it.second<<"\n";
+      }
+
+      cout<<mp[1]<<" "<<mp[5]<<" "<<mp[2]<<"\n"; // print 2 9 7
+      cout<<mp[4]<<"\n"; // print 0, since it does not exists.
+
+      // same option for using iterators as we did in vector for the insert function.
+
+      // use of find() function
+      auto it = mp.find(5); // point to the position where key 5 is found.
+      //cout<<it.second<<"\n"; // print the value of key 5 that is 9.
+
+      it = mp.find(11); // point to the end of the map, since 11 not there.
+
+      // lower_bound() and upper_bound() works exactly in the
+      // same way as explained in the other portion.
+
+      // this is the syntax
+      auto it1 = mp.lower_bound(2);
+      auto it2 = mp.upper_bound(2);
+
+      // swap(), erase(), size(), empty() are same as above.
+}
+
+void explainMultimap()
+{
+    // everything same as map, only it can store multiple keys
+    // only mp[key] can not be used there.
+}
+
+void explainUnordered_Map()
+{
+    // same as set and unordered set difference.
+}
+
+bool compr(pair<int, int>p1, pair<int, int>p2)
+{
+    if(p1.second < p2.second)
+        return true;
+    else if(p1.second == p2.second)
+        if(p1.first > p2.first) return true;
+
+    return false;
+}
+
+void explainExtra_Stuff()
+{
+    int arr[] = {1,6,3,8,9,3};
+    int n = 6;
+    int arr1[] = {1,6,3,8,9,3};
+    int m = 6;
+
+    // use of sort() function
+    sort(arr, arr+n); // sort the whole array in ascending order.
+    sort(arr1, arr1+m, greater<int>()); // sort the whole array in descending order.
+
+    sort(arr+2, arr+4); // sort in a particular range.
+
+    // sort the given pair in ascending order according
+    // to the second element. if second element is same
+    // then sort it according to the first element but
+    // in descending order.
+    pair<int,int> a[] = {{1,2},{2,1},{4,1}};
+
+    sort(a, a+3, compr);
+
+    // { {4,1}, {2,1}, {1,2} };
+
+    // count number of 1.
+    int num = 7;
+    int cnt = __builtin_popcount(num);
+
+    long long int num1 = 734562563;
+    int cnt2 = __builtin_popcountll(num1);
+
+    // all possible permutation
+    string st = "123";
+
+    do
+    {
+        cout<<st<<endl;
+    } while(next_permutation(st.begin(), st.end()));
+
+    //123
+    //132
+    //213
+    //231
+    //312
+    //321
+
+    // find the maximum element in array arr.
+    int maxi = *max_element(arr,arr+6);
+}
+
 int main()
 {
     //=============================
@@ -325,11 +579,42 @@ int main()
     //=============================
     explainPriority_Queue();
 
+    //=============================
+    //     SET
+    //=============================
+    explainSet();
 
+    //=============================
+    //     MULTISET
+    //=============================
+    explainMultiset();
+
+    //=============================
+    //     UNORDERD_SET
+    //=============================
+    explainUnordered_Set();
+
+     //=============================
+    //       MAP
+    //=============================
+    explainMap();
+
+     //=============================
+    //     MULTIMAP
+    //=============================
+    explainMultimap();
+
+     //=============================
+    //     UNORDERD_MAP
+    //=============================
+    explainUnordered_Map();
+
+     //=============================
+    //     EXTRA_STUFF
+    //=============================
+    explainExtra_Stuff();
 
 
     return 0;
-
-
 }
 
